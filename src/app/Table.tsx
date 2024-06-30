@@ -1,5 +1,3 @@
-//Table.tsk
-
 import React, { useState, useCallback } from 'react';
 import TableRow from './TableRow';
 import { FaPlus } from 'react-icons/fa';
@@ -46,11 +44,7 @@ const Table: React.FC = () => {
   return (
     <DndProvider backend={HTML5Backend}>
       <div className="container mx-auto my-4">
-        <div className="mb-4 flex justify-between">
-          <button onClick={addRow} className="bg-blue-500 text-white px-4 py-2 rounded flex items-center">
-            <FaPlus className="mr-2" />
-            Add State
-          </button>
+        <div className="mb-4 flex justify-end">
           <button onClick={addVariant} className="bg-green-500 text-white px-4 py-2 rounded flex items-center">
             <FaPlus className="mr-2" />
             Add Variant
@@ -83,6 +77,14 @@ const Table: React.FC = () => {
                 moveRow={moveRow}
               />
             ))}
+            <tr>
+              <td colSpan={variants.length + 1} className="border px-4 py-2 text-center">
+                <button onClick={addRow} className="bg-blue-500 text-white px-4 py-2 rounded flex items-center mx-auto">
+                  <FaPlus className="mr-2" />
+                  Add State
+                </button>
+              </td>
+            </tr>
           </tbody>
         </table>
       </div>

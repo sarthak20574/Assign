@@ -1,5 +1,3 @@
-//page.tsk
-
 "use client";
 import Table from './Table';
 import { FaArrowLeft } from 'react-icons/fa';
