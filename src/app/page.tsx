@@ -2,7 +2,7 @@
 
 "use client";
 import Table from './Table';
-import { FaArrowLeft, FaPlus, FaUpload } from 'react-icons/fa';
+import { FaArrowLeft } from 'react-icons/fa';
 
 export default function Home() {
   return (
