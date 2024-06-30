@@ -1,3 +1,5 @@
+//_app.tsk
+
 import '../app/globals.css';
 import { AppProps } from 'next/app';
 

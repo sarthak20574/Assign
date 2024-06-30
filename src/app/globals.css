@@ -30,4 +30,22 @@ body {
   .text-balance {
     text-wrap: balance;
   }
+
+  /* New button styles */
+  .btn {
+    @apply transition-all duration-300 ease-in-out bg-opacity-75;
+  }
+
+  .btn:hover {
+    @apply bg-opacity-100;
+  }
+
+  /* New upload button styles */
+  .upload-btn {
+    @apply flex items-center justify-center bg-blue-500 text-white px-2 py-1 rounded cursor-pointer;
+  }
+
+  .upload-btn:hover {
+    @apply bg-blue-600;
+  }
 }

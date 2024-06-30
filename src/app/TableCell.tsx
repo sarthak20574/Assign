@@ -1,41 +1,45 @@
-import React, { useState } from 'react';
+//TableCell.tsk
+
+import React from 'react';
+import { FaUpload } from 'react-icons/fa';
 
 interface TableCellProps {
   rowIndex: number;
   variantIndex: number;
-  design?: string;
+  design: string;
   updateDesign: (rowIndex: number, variantIndex: number, design: string) => void;
 }
 
 const TableCell: React.FC<TableCellProps> = ({ rowIndex, variantIndex, design, updateDesign }) => {
-  const [fileInput, setFileInput] = useState<HTMLInputElement | null>(null);
-
-  const handleClick = () => {
-    if (fileInput) {
-      fileInput.click();
-    }
-  };
-
-  const handleDesignInsert = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
-      const file = URL.createObjectURL(e.target.files[0]);
-      updateDesign(rowIndex, variantIndex, file);
+      const reader = new FileReader();
+      reader.onload = () => {
+        if (reader.readyState === 2) {
+          updateDesign(rowIndex, variantIndex, reader.result as string);
+        }
+      };
+      reader.readAsDataURL(e.target.files[0]);
     }
   };
 
   return (
     <td className="border px-4 py-2">
-      {design && <img src={design} alt="Design" style={{ width: '50px', height: '50px' }} />}
-      <button onClick={handleClick} className="bg-yellow-500 text-white px-2 py-1 rounded">
-        Insert Design
-      </button>
-      <input
-        type="file"
-        accept="image/*"
-        onChange={handleDesignInsert}
-        style={{ display: 'none' }}
-        ref={(input) => setFileInput(input)}
-      />
+      {design.startsWith('data:image') ? (
+        <img src={design} alt="uploaded" className="w-full h-auto" />
+      ) : (
+        <input
+          type="text"
+          value={design}
+          onChange={(e) => updateDesign(rowIndex, variantIndex, e.target.value)}
+          className="w-full border rounded p-1 mb-2"
+        />
+      )}
+      <label className="flex items-center justify-center bg-blue-500 text-white px-2 py-1 rounded cursor-pointer">
+        <FaUpload className="mr-2" />
+        Upload
+        <input type="file" accept="image/*" className="hidden" onChange={handleImageUpload} />
+      </label>
     </td>
   );
 };
