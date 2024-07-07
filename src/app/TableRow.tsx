@@ -1,8 +1,8 @@
-
-//TableRow.tsk
+// TableRow.tsx
 import React from 'react';
 import TableCell from './TableCell';
 import { useDrag, useDrop } from 'react-dnd';
+import { FaTrash, FaArrowsAlt } from 'react-icons/fa';
 
 interface TableRowProps {
   index: number;
@@ -32,7 +32,7 @@ const TableRow: React.FC<TableRowProps> = ({ index, row, variants, designs, dele
     },
   });
 
-  const [{ isDragging }, drag] = useDrag({
+  const [{ isDragging }, drag, preview] = useDrag({
     type: 'row',
     item: { index },
     collect: (monitor) => ({
@@ -40,13 +40,18 @@ const TableRow: React.FC<TableRowProps> = ({ index, row, variants, designs, dele
     }),
   });
 
-  drag(drop(ref));
+  drag(drop(preview(ref)));
 
   return (
-    <tr ref={ref} style={{ opacity: isDragging ? 0.5 : 1 }}>
-      <td className="border px-4 py-2 text-black">
+    <tr ref={ref} style={{ opacity: isDragging ? 0.5 : 1 }} className="bg-white">
+      <td className="border px-4 py-2 text-gray-800 flex items-center">
+        <FaArrowsAlt className="mr-2 cursor-move text-gray-600" />
         {row}
-        <button onClick={() => deleteRow(index)} className="bg-red-500 text-white px-2 py-1 rounded ml-2">
+        <button
+          onClick={() => deleteRow(index)}
+          className="flex items-center bg-red-600 hover:bg-red-700 text-white px-2 py-1 rounded ml-2 shadow"
+        >
+          <FaTrash className="mr-1" />
           Delete
         </button>
       </td>
